@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Comparison</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .models-grid {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        
+        .model-card {
+            background: #f7fafc;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #667eea;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .model-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .model-type {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.5em;
+            font-weight: normal;
+        }
+        
+        .model-type.nlp { background: #667eea; }
+        .model-type.vision { background: #48bb78; }
+        .model-type.tabular { background: #ed8936; }
+        
+        .info-row {
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        
+        .info-label {
+            font-size: 0.85em;
+            color: #718096;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            color: #2d3748;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+        
+        .speed-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .speed-fast {
+            background: #c6f6d5;
+            color: #22543d;
+        }
+        
+        .speed-medium {
+            background: #fef3c7;
+            color: #78350f;
+        }
+        
+        .speed-slow {
+            background: #fecaca;
+            color: #7f1d1d;
+        }
+        
+        .legend {
+            background: #edf2f7;
+            padding: 30px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+        
+        .legend-text {
+            font-weight: 600;
+            color: #2d3748;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .models-grid {
+                padding: 20px;
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Machine Learning Model Comparison</h1>
+            <p>Performance, Speed & Use Case Overview</p>
+        </div>
+        
+        <div class="models-grid">
+            <!-- BERT-Base -->
+            <div class="model-card">
+                <div class="model-name">
+                    BERT-Base
+                    <span class="model-type nlp">NLP</span>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Model Size</div>
+                    <div class="info-value">~110M parameters</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Accuracy</div>
+                    <div class="info-value">Strong results on GLUE tasks</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Inference Speed</div>
+                    <div class="info-value">
+                        <span class="speed-badge speed-medium">🟨 Medium</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Key Features</div>
+                    <div class="info-value">Good for NLP classification; moderate explainability</div>
+                </div>
+            </div>
+            
+            <!-- GPT-2 -->
+            <div class="model-card">
+                <div class="model-name">
+                    GPT-2
+                    <span class="model-type nlp">NLP</span>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Model Size</div>
+                    <div class="info-value">117M–1.5B parameters</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Accuracy</div>
+                    <div class="info-value">Higher accuracy & fluency at larger sizes</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Inference Speed</div>
+                    <div class="info-value">
+                        <span class="speed-badge speed-slow">🟥 Slow (large sizes)</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Key Features</div>
+                    <div class="info-value">Best for text generation; autoregressive; low interpretability</div>
+                </div>
+            </div>
+            
+            <!-- MobileNetV2 -->
+            <div class="model-card">
+                <div class="model-name">
+                    MobileNetV2
+                    <span class="model-type vision">Vision</span>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Model Size</div>
+                    <div class="info-value">~3–4M parameters</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Accuracy</div>
+                    <div class="info-value">~71–75% ImageNet top-1</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Inference Speed</div>
+                    <div class="info-value">
+                        <span class="speed-badge speed-fast">🟩 Very Fast</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Key Features</div>
+                    <div class="info-value">Ideal for mobile/edge devices</div>
+                </div>
+            </div>
+            
+            <!-- EfficientNet-B0 -->
+            <div class="model-card">
+                <div class="model-name">
+                    EfficientNet-B0
+                    <span class="model-type vision">Vision</span>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Model Size</div>
+                    <div class="info-value">~5.3M parameters</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Accuracy</div>
+                    <div class="info-value">~77% ImageNet top-1</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Inference Speed</div>
+                    <div class="info-value">
+                        <span class="speed-badge speed-fast">🟩 Fast, Efficient</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Key Features</div>
+                    <div class="info-value">Great accuracy–efficiency balance</div>
+                </div>
+            </div>
+            
+            <!-- XGBoost -->
+            <div class="model-card">
+                <div class="model-name">
+                    XGBoost
+                    <span class="model-type tabular">Tabular</span>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Model Size</div>
+                    <div class="info-value">Tree-based, compact</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Accuracy</div>
+                    <div class="info-value">Often top performer on tabular tasks</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Inference Speed</div>
+                    <div class="info-value">
+                        <span class="speed-badge speed-fast">🟩 Very Fast</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Key Features</div>
+                    <div class="info-value">Easy to explain with SHAP values</div>
+                </div>
+            </div>
+            
+            <!-- TabNet -->
+            <div class="model-card">
+                <div class="model-name">
+                    TabNet
+                    <span class="model-type tabular">Tabular</span>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Model Size</div>
+                    <div class="info-value">Varies by configuration</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Accuracy</div>
+                    <div class="info-value">Competitive but not always higher than XGBoost</div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Inference Speed</div>
+                    <div class="info-value">
+                        <span class="speed-badge speed-slow">🟥 Slower</span>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-label">Key Features</div>
+                    <div class="info-value">Offers attention-based interpretability</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-dot" style="background: #c6f6d5;"></div>
+                <span class="legend-text">Very Fast / Fast</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background: #fef3c7;"></div>
+                <span class="legend-text">Medium Speed</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-dot" style="background: #fecaca;"></div>
+                <span class="legend-text">Slow</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
